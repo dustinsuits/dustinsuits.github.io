@@ -1,0 +1,60 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const isDev = import.meta.env.DEV;
+const all = await getCollection("projects", ({ data }) => isDev || !data.draft);
+const shopHumble = all
+  .filter((p) => p.data.category === "shop-humble")
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const securityIt = all
+  .filter((p) => p.data.category === "security-it")
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Projects" description="Shop Humble woodworking builds and security/IT projects.">
+  <h1 class="font-serif text-3xl mb-2">Projects</h1>
+  <p class="text-shopfloor/80 max-w-xl mb-10">
+    Two sides of the same instinct — building things that hold up, whether
+    that's out of walnut or out of infrastructure.
+  </p>
+
+  <section class="mb-14">
+    <h2 class="meta text-xs uppercase text-copper mb-4">Shop Humble</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {
+        shopHumble.map((project) => (
+          <ProjectCard
+            slug={project.id}
+            title={project.data.title}
+            summary={project.data.summary}
+            category={project.data.category}
+            tags={project.data.tags}
+            coverImage={project.data.coverImage}
+            draft={project.data.draft}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2 class="meta text-xs uppercase text-slate mb-4">Security &amp; IT</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      {
+        securityIt.map((project) => (
+          <ProjectCard
+            slug={project.id}
+            title={project.data.title}
+            summary={project.data.summary}
+            category={project.data.category}
+            tags={project.data.tags}
+            coverImage={project.data.coverImage}
+            draft={project.data.draft}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

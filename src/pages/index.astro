@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+const projects = (await getCollection("projects", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestProject = projects[0];
+
+const notes = (await getCollection("notes", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const latestNote = notes[0];
+---
+
+<BaseLayout title="Home">
+  <section class="mb-16">
+    <h1 class="font-serif text-4xl leading-tight">
+      Security &amp; IT operations leader.<br />Woodworker on the side.
+    </h1>
+    <p class="mt-4 text-shopfloor/80 max-w-xl">
+      I'm Dustin — I lead security and IT operations at TRM Labs, and I run a
+      small CNC &amp; laser woodworking business called Shop Humble. This site
+      is where both live.
+    </p>
+  </section>
+
+  <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-16">
+    <a href="/projects/" class="border border-walnut/20 p-4 hover:border-copper">
+      <div class="meta text-xs uppercase text-shopfloor/50">Explore</div>
+      <div class="font-serif text-lg mt-1">Projects</div>
+    </a>
+    <a href="/now/" class="border border-walnut/20 p-4 hover:border-copper">
+      <div class="meta text-xs uppercase text-shopfloor/50">Currently</div>
+      <div class="font-serif text-lg mt-1">Now</div>
+    </a>
+    <a href="/experience/" class="border border-walnut/20 p-4 hover:border-copper">
+      <div class="meta text-xs uppercase text-shopfloor/50">Résumé view</div>
+      <div class="font-serif text-lg mt-1">Experience</div>
+    </a>
+  </section>
+
+  {
+    latestProject && (
+      <section class="mb-12">
+        <h2 class="meta text-xs uppercase text-shopfloor/50 mb-3">Latest project</h2>
+        <ProjectCard
+          slug={latestProject.id}
+          title={latestProject.data.title}
+          summary={latestProject.data.summary}
+          category={latestProject.data.category}
+          tags={latestProject.data.tags}
+          coverImage={latestProject.data.coverImage}
+        />
+      </section>
+    )
+  }
+
+  {
+    latestNote && (
+      <section>
+        <h2 class="meta text-xs uppercase text-shopfloor/50 mb-3">Latest note</h2>
+        <a href={`/notes/${latestNote.id}/`} class="block group">
+          <h3 class="font-serif text-lg group-hover:text-copper">{latestNote.data.title}</h3>
+          <p class="text-sm text-shopfloor/70 mt-1">{latestNote.data.summary}</p>
+        </a>
+      </section>
+    )
+  }
+</BaseLayout>

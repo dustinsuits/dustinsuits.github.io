@@ -1,0 +1,49 @@
+---
+import { render } from "astro:content";
+
+interface Props {
+  entries: any[];
+}
+
+const { entries } = Astro.props;
+
+function formatDate(value: string | null) {
+  if (!value) return "Present";
+  const [year, month] = value.split("-");
+  const date = new Date(Number(year), Number(month) - 1);
+  return date.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({ entry, Content: (await render(entry)).Content }))
+);
+---
+
+<div class="space-y-10">
+  {
+    rendered.map(({ entry, Content }) => (
+      <article class="border-l-2 border-walnut/20 pl-5">
+        <div class="meta text-xs uppercase text-shopfloor/50">
+          {formatDate(entry.data.startDate)} &ndash; {formatDate(entry.data.endDate)}
+        </div>
+        <h3 class="font-serif text-lg mt-1">
+          {entry.data.role}
+          {" — "}
+          {entry.data.companyUrl ? (
+            <a href={entry.data.companyUrl} class="text-copper">
+              {entry.data.company}
+            </a>
+          ) : (
+            entry.data.company
+          )}
+        </h3>
+        {entry.data.location && (
+          <div class="meta text-xs text-shopfloor/40">{entry.data.location}</div>
+        )}
+        <div class="prose-sm mt-2 text-sm text-shopfloor/80 [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-1">
+          <Content />
+        </div>
+      </article>
+    ))
+  }
+</div>

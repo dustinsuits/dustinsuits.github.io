@@ -1,0 +1,23 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Timeline from "../components/Timeline.astro";
+
+const entries = (await getCollection("experience")).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Experience" description="Dustin Suits' professional background in security and IT operations.">
+  <h1 class="font-serif text-3xl mb-2">Experience</h1>
+  <p class="text-shopfloor/80 max-w-xl mb-10">
+    Dustin Suits leads security and IT operations at TRM Labs, where he owns
+    the programs that keep a fast-moving crypto-intelligence company secure
+    and running — from enterprise security posture to the systems the rest
+    of the business depends on. His background spans global network
+    engineering, Tier 3/4 technical operations, and enterprise IT at scale,
+    giving him a practitioner's view of security that most managers only get
+    in theory. He specializes in turning ambiguity into documented, repeatable
+    process, and in building teams and systems that hold up under real
+    operational pressure.
+  </p>
+  <Timeline entries={entries} />
+</BaseLayout>

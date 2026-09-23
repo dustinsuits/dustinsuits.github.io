@@ -1,0 +1,14 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const [aboutEntry] = await getCollection("about");
+const { Content } = await render(aboutEntry);
+---
+
+<BaseLayout title="About" description="About Dustin Suits.">
+  <h1 class="font-serif text-3xl mb-6">About</h1>
+  <div class="prose max-w-none text-shopfloor/90 leading-relaxed [&_p]:mb-4 [&_a]:underline">
+    <Content />
+  </div>
+</BaseLayout>

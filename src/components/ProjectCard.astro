@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import Tag from "./Tag.astro";
+
+interface Props {
+  slug: string;
+  title: string;
+  summary: string;
+  category: "shop-humble" | "security-it";
+  tags: string[];
+  coverImage?: any;
+  draft?: boolean;
+}
+
+const { slug, title, summary, category, tags, coverImage, draft } = Astro.props;
+const accent = category === "shop-humble" ? "border-copper" : "border-slate";
+const categoryLabel = category === "shop-humble" ? "Shop Humble" : "Security & IT";
+---
+
+<a
+  href={`/projects/${slug}/`}
+  class:list={["block border-t-2 pb-2 group", accent]}
+>
+  {
+    coverImage && (
+      <Image
+        src={coverImage}
+        alt={title}
+        width={640}
+        class="w-full aspect-[4/3] object-cover mb-3"
+      />
+    )
+  }
+  <div class="meta text-xs uppercase text-shopfloor/50 flex items-center gap-2 mb-1">
+    <span>{categoryLabel}</span>
+    {draft && <span class="text-copper">(draft)</span>}
+  </div>
+  <h3 class="font-serif text-xl group-hover:text-copper">{title}</h3>
+  <p class="text-sm text-shopfloor/70 mt-1">{summary}</p>
+  <div class="flex flex-wrap gap-1.5 mt-3">
+    {tags.map((tag: string) => <Tag label={tag} />)}
+  </div>
+</a>

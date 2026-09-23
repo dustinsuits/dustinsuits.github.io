@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// TODO(dustin): replace these placeholder hrefs with real URLs before shipping.
+const links = [
+  { label: "GitHub", href: "https://github.com/dustinsuits" },
+  { label: "Instagram (Shop Humble)", href: "#" },
+  { label: "Etsy (Shop Humble)", href: "#" },
+  { label: "LinkedIn", href: "#" },
+  { label: "Email", href: "#" },
+];
+---
+
+<BaseLayout title="Contact" description="Find Dustin Suits elsewhere on the web.">
+  <h1 class="font-serif text-3xl mb-6">Find me elsewhere</h1>
+  <ul class="space-y-3">
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.href} class="text-lg hover:text-copper">
+            {link.label} &rarr;
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="meta text-xs text-shopfloor/40 mt-10">
+    (Placeholder links above still need real URLs — see src/pages/contact.astro.)
+  </p>
+</BaseLayout>

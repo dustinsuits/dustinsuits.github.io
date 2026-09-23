@@ -1,0 +1,59 @@
+---
+import { getCollection, render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Tag from "../../components/Tag.astro";
+
+export async function getStaticPaths() {
+  const isDev = import.meta.env.DEV;
+  const projects = await getCollection("projects", ({ data }) => isDev || !data.draft);
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const categoryLabel = project.data.category === "shop-humble" ? "Shop Humble" : "Security & IT";
+---
+
+<BaseLayout title={project.data.title} description={project.data.summary}>
+  <div class="meta text-xs uppercase text-shopfloor/50 mb-2">
+    {categoryLabel} &middot; {project.data.status}
+    {project.data.draft && <span class="text-copper"> &middot; draft</span>}
+  </div>
+  <h1 class="font-serif text-3xl mb-4">{project.data.title}</h1>
+
+  {
+    project.data.coverImage && (
+      <Image
+        src={project.data.coverImage}
+        alt={project.data.title}
+        width={960}
+        class="w-full mb-6"
+      />
+    )
+  }
+
+  <div class="prose max-w-none text-shopfloor/90 leading-relaxed mb-8 [&_p]:mb-4">
+    <Content />
+  </div>
+
+  {
+    project.data.images?.length > 0 && (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        {project.data.images.map((img: any) => (
+          <Image src={img.src} alt={img.alt} width={640} />
+        ))}
+      </div>
+    )
+  }
+
+  <div class="flex flex-wrap gap-1.5 mb-2">
+    {project.data.tools.map((tool: string) => <Tag label={tool} />)}
+    {project.data.tags.map((tag: string) => <Tag label={tag} />)}
+  </div>
+
+  <a href="/projects/" class="meta text-xs uppercase text-shopfloor/50 hover:text-copper">&larr; All projects</a>
+</BaseLayout>

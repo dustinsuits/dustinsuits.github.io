@@ -1,0 +1,17 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const [nowEntry] = await getCollection("now");
+const { Content } = await render(nowEntry);
+---
+
+<BaseLayout title="Now" description="What Dustin Suits is currently focused on.">
+  <h1 class="font-serif text-3xl mb-2">Now</h1>
+  <p class="meta text-xs uppercase text-shopfloor/50 mb-6">
+    Updated {nowEntry.data.updated.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+  </p>
+  <div class="prose max-w-none text-shopfloor/90 leading-relaxed [&_p]:mb-4 [&_a]:underline">
+    <Content />
+  </div>
+</BaseLayout>

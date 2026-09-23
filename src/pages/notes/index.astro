@@ -1,0 +1,26 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const isDev = import.meta.env.DEV;
+const notes = (await getCollection("notes", ({ data }) => isDev || !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Notes" description="Short posts and build logs from Dustin Suits.">
+  <h1 class="font-serif text-3xl mb-8">Notes</h1>
+  <div class="space-y-8">
+    {
+      notes.map((note) => (
+        <a href={`/notes/${note.id}/`} class="block group">
+          <div class="meta text-xs uppercase text-shopfloor/50">
+            {note.data.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+          </div>
+          <h2 class="font-serif text-xl group-hover:text-copper">{note.data.title}</h2>
+          {note.data.summary && <p class="text-sm text-shopfloor/70 mt-1">{note.data.summary}</p>}
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>
