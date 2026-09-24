@@ -1,7 +1,7 @@
 ---
 role: "Business Owner"
 company: "Shop Humble"
-companyUrl: "https://dustinsuits.github.io/contact/"
+companyUrl: "https://shophumble.etsy.com"
 location: "Bucks County, Pennsylvania"
 startDate: "2014-09"
 endDate: null

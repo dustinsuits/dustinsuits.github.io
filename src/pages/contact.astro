@@ -1,13 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-// TODO(dustin): replace these placeholder hrefs with real URLs before shipping.
 const links = [
-  { label: "Email", href: "#" },
+  { label: "Email", href: "mailto:dustinsuits@gmail.com" },
   { label: "GitHub", href: "https://github.com/dustinsuits" },
-  { label: "LinkedIn", href: "#" },
-  { label: "Shop Humble - Etsy", href: "#" },
-  { label: "Shop Humble - Instagram", href: "#" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/dustinsuits/" },
+  { label: "Shop Humble - Etsy", href: "https://shophumble.etsy.com" },
+  { label: "Shop Humble - Instagram", href: "https://www.instagram.com/shophumble" },
 ];
 ---
 
@@ -24,7 +23,4 @@ const links = [
       ))
     }
   </ul>
-  <p class="meta text-xs text-shopfloor/40 mt-10">
-    (Placeholder links above still need real URLs — see src/pages/contact.astro.)
-  </p>
 </BaseLayout>
