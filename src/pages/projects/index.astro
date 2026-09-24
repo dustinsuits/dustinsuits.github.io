@@ -22,39 +22,53 @@ const securityIt = all
 
   <section class="mb-14">
     <h2 class="meta text-xs uppercase text-copper mb-4">Shop Humble</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {
-        shopHumble.map((project) => (
-          <ProjectCard
-            slug={project.id}
-            title={project.data.title}
-            summary={project.data.summary}
-            category={project.data.category}
-            tags={project.data.tags}
-            coverImage={project.data.coverImage}
-            draft={project.data.draft}
-          />
-        ))
-      }
-    </div>
+    {
+      shopHumble.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {shopHumble.map((project) => (
+            <ProjectCard
+              slug={project.id}
+              title={project.data.title}
+              summary={project.data.summary}
+              category={project.data.category}
+              tags={project.data.tags}
+              coverImage={project.data.coverImage}
+              draft={project.data.draft}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="border-2 border-dashed border-copper/40 p-8 text-center">
+          <p class="meta text-xs uppercase text-copper mb-1">Under construction</p>
+          <p class="text-sm text-shopfloor/60">Real Shop Humble builds are coming soon.</p>
+        </div>
+      )
+    }
   </section>
 
   <section>
     <h2 class="meta text-xs uppercase text-slate mb-4">Security &amp; IT</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {
-        securityIt.map((project) => (
-          <ProjectCard
-            slug={project.id}
-            title={project.data.title}
-            summary={project.data.summary}
-            category={project.data.category}
-            tags={project.data.tags}
-            coverImage={project.data.coverImage}
-            draft={project.data.draft}
-          />
-        ))
-      }
-    </div>
+    {
+      securityIt.length > 0 ? (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {securityIt.map((project) => (
+            <ProjectCard
+              slug={project.id}
+              title={project.data.title}
+              summary={project.data.summary}
+              category={project.data.category}
+              tags={project.data.tags}
+              coverImage={project.data.coverImage}
+              draft={project.data.draft}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="border-2 border-dashed border-slate/40 p-8 text-center">
+          <p class="meta text-xs uppercase text-slate mb-1">Under construction</p>
+          <p class="text-sm text-shopfloor/60">Security &amp; IT project write-ups are coming soon.</p>
+        </div>
+      )
+    }
   </section>
 </BaseLayout>

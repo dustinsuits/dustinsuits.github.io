@@ -1,7 +1,9 @@
 ---
 title: "About"
 ---
-Hi, I'm Dustin. On paper I'm a security and IT operations guy — these days leading that side of the house at [TRM Labs](https://www.trmlabs.com), and before that doing the hands-on version of the same job across global networks, Tier 3/4 support, and a lot of macOS and iOS fleets. I like the unglamorous work: tightening security posture, writing the runbook that should have existed already, and building systems that hold up when something actually breaks.
+Hi, I'm Dustin. On paper I'm a security and IT operations guy — these days leading that side of the house at [TRM Labs](https://www.trmlabs.com). Before that, I did the hands-on version of the same job: global networks, Tier 3/4 support, and a lot of macOS and iOS fleets.
+
+I like the unglamorous work: tightening security posture, writing the runbook that should have existed already, and building systems that hold up when something actually breaks.
 
 Off the clock, I run [Shop Humble](/projects/), a small woodworking business where I design and build custom home décor and wood pieces — everything from rough lumber to a finished, CNC-cut and laser-engraved piece someone puts in their home. It started as a way to make things with my hands after a career spent making things run smoothly on a screen, and it's turned into a real second craft.
 
